@@ -30,11 +30,11 @@ def generator_datoteke_za_gesla_1stopnja (datoteka, barve_ki_jih_ni, pomožna="p
         
 
 
-generator_datoteke_za_gesla_1stopnja("Kobinacije_level1.txt", ["V", "Y", "P"])
-generator_datoteke_za_gesla("Kobinacije_level2.txt", ["Z", "O", "V", "Y", "P"])
-generator_datoteke_za_gesla("Kobinacije_level3.txt", ["O", "V", "Y", "P"])
-generator_datoteke_za_gesla("Kobinacije_level4.txt", ["V", "Y", "P"])
-generator_datoteke_za_gesla("Kobinacije_level5.txt", ["Y", "P"])
-generator_datoteke_za_gesla("Kobinacije_level6.txt", ["P"])
-generator_datoteke_za_gesla("Kobinacije_level7.txt", [])
+generator_datoteke_za_gesla_1stopnja("Kombinacije_level1.txt", ["V", "Y", "P"])
+generator_datoteke_za_gesla("Kombinacije_level2.txt", ["Z", "O", "V", "Y", "P"])
+generator_datoteke_za_gesla("Kombinacije_level3.txt", ["O", "V", "Y", "P"])
+generator_datoteke_za_gesla("Kombinacije_level4.txt", ["V", "Y", "P"])
+generator_datoteke_za_gesla("Kombinacije_level5.txt", ["Y", "P"])
+generator_datoteke_za_gesla("Kombinacije_level6.txt", ["P"])
+generator_datoteke_za_gesla("Kombinacije_level7.txt", [])
 
