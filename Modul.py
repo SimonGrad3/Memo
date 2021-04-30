@@ -1,4 +1,4 @@
-import rendom
+import random
 
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V","Y", "P" 
@@ -53,6 +53,6 @@ def nova_igra(level):
     datoteka = izberi_datoteko(level)
     with open(datoteka, encoding="utf8") as dat:
         možnosti = dat.read().split()
-        geslo = rendom.choice(možnosti)
+        geslo = random.choice(možnosti)
     return Memo(geslo, level)
         
