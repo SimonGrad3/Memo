@@ -1,7 +1,7 @@
 import random
 
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
-RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V","Y", "P" 
+RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
 STEVILO_POSKUSOV = 6
 
 def premešaj(seznam):
@@ -11,11 +11,16 @@ def izloči(črka, seznam):
     return seznam.remove(črka)
 
 class Memo:
-    def __init__(self, geslo, level):
+    def __init__(self, geslo, level, ugibanja =[]):
         self.geslo = geslo
         self.level = level
+        self.ugibanja = ugibanja
+    
+    def __repr__(self):
+        return f"Memo({self.geslo}, {self.level}, {self.ugibanja})"
 
     def preveri_vrstico(self, ugibanje):
+        self.ugibanja.append(ugibanje)
         output = []
         for i in range(4):
             if ugibanje[i] == self.geslo[i]:
@@ -27,7 +32,10 @@ class Memo:
             else:
                 output.append(NEVIDNA)
         return premešaj(output)
-    
+
+    def št_napak(self):
+        return len(self.ugibanja)
+
     def zmaga(self, ugibanje):
         return preveri_vrstico(self, ugibanje) == [ČRNA] * 4 
 
@@ -53,6 +61,7 @@ def nova_igra(level):
     datoteka = izberi_datoteko(level)
     with open(datoteka, encoding="utf8") as dat:
         možnosti = dat.read().split()
-        geslo = random.choice(možnosti)
+        geslo_str = random.choice(možnosti)
+        geslo = [barva for barva in geslo_str]
     return Memo(geslo, level)
         
