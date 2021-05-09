@@ -3,7 +3,7 @@ import random
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
 ZMAGA, PORAZ = "W", "L"
-STEVILO_POSKUSOV = 6
+ŠTEVILO_POSKUSOV = 6
 
 def premešaj(seznam):
     return random.shuffle(seznam)
@@ -22,19 +22,18 @@ class Memo:
         return f"Memo({self.geslo}, {self.level}, {self.ugibanja})"
 
     def preveri_vrstico(self, ugibanje):
-        self.ugibanja.append(ugibanje)
         output = list()
         geslo_za_preverjanje = [i for i in self.geslo]
         ugibanje_za_preverjanje = [i for i in ugibanje]
         
-        """Preveri za tiste, ki so na iste barve na istem mestu"""
+        """Preveri (ČRNE), če je kakšna ista barva na istem mestu"""
         for i in range(4):
             if ugibanje_za_preverjanje[3-i] == geslo_za_preverjanje[3-i]:
                 output.append(ČRNA)
                 geslo_za_preverjanje.pop(3-i)
                 ugibanje_za_preverjanje.pop(3-i)
 
-        """Preveri še ostale"""
+        """Preveri še ostale (BELE, NEVIDNE)"""
         n = len(ugibanje_za_preverjanje)
         for i in range(n):
             if ugibanje_za_preverjanje[n-i-1] in geslo_za_preverjanje:
@@ -43,6 +42,7 @@ class Memo:
             else:
                 output.append(NEVIDNA)
 
+        premešaj(output)
         return output
 
     def št_napak(self):
@@ -76,4 +76,4 @@ def nova_igra(level):
         geslo_str = random.choice(možnosti)
         geslo = [barva for barva in geslo_str]
     return Memo(geslo, level)
-        
+
