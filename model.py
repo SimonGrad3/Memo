@@ -2,6 +2,7 @@ import random
 
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
+ZMAGA, PORAZ = "W", "L"
 STEVILO_POSKUSOV = 6
 
 def premešaj(seznam):
