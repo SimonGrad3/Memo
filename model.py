@@ -49,7 +49,21 @@ class Memo:
         return len(self.ugibanja)
 
     def zmaga(self, ugibanje):
-        return preveri_vrstico(self, ugibanje) == [ČRNA] * 4 
+        return self.preveri_vrstico(ugibanje) == [ČRNA] * 4 
+
+    def poraz(self):
+        return self.št_napak() > ŠTEVILO_POSKUSOV
+
+    def igraj(self, ugibanje):
+        self.ugibanja.append(ugibanje)
+
+        if self.zmaga(ugibanje):
+            return ZMAGA
+        elif self.poraz():
+            return PORAZ
+        else:
+            return(self.preveri_vrstico(ugibanje))
+
 
 
 def izberi_datoteko(level):
