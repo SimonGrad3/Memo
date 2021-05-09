@@ -52,21 +52,7 @@ class Memo:
 
 
 def izberi_datoteko(level):
-    if level == 1:
-        return "Kombinacije_level1.txt"
-    elif level == 2:
-        return "Kombinacije_level2.txt"
-    elif level == 3:
-        return "Kombinacije_level3.txt"
-    elif level == 4:
-        return "Kombinacije_level4.txt"
-    elif level == 5:
-        return "Kombinacije_level5.txt"
-    elif level == 6:
-        return "Kombinacije_level6.txt"
-    elif level == 7:
-        return "Kombinacije_level7.txt"
-
+    return f"Kombinacije_level{level}.txt"
 
 def nova_igra(level):
     datoteka = izberi_datoteko(level)
