@@ -2,7 +2,7 @@ import bottle
 import model
 
 @bottle.get("/css/<datoteka>")
-def neki(datoteka):
+def pridobi_css_datoteko(datoteka):
     return bottle.static_file(datoteka, root="css")
 
 @bottle.get("/")

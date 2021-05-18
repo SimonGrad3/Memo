@@ -3,6 +3,7 @@ import random
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
 ZMAGA, PORAZ = "W", "L"
+ZAČETEK = "S"
 ŠTEVILO_POSKUSOV = 6
 
 def premešaj(seznam):
@@ -76,4 +77,30 @@ def nova_igra(level):
         geslo_str = random.choice(možnosti)
         geslo = [barva for barva in geslo_str]
     return Memo(geslo, level)
+
+
+class Igre:
+    def __init__(self, začetne_igre=None, začetni_id=0):
+        self.igre = začetne_igre or {}
+        self.max_id = začetni_id
+
+    def prost_id_igre(self):
+        self.max_id += 1
+        return self.max_id
+
+    def nova_igra(self, level):
+        """Sestavi novo igro z naključnim geslom"""
+        nov_id = self.prost_id_igre()
+        trenutna_igra = nova_igra(level)
+
+        self.igre[nov_id] = (trenutna_igra, ZAČETEK)
+        return nov_id
+
+    def ugibaj(self, id_igre, ugib):
+        """Ob ugibanju vrne rezultat ter spremeni stanje"""
+        igra = self.igre[id_igre]
+        novo_stanje = igra.igraj(ugib)
+        self.igre[id_igre] = (igra, novo_stanje)
+
+
 
