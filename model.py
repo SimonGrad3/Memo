@@ -120,8 +120,7 @@ class Igre:
             json_slovar = self.pretvori_v_json_slovar()
             json.dump(json_slovar, dat, indent=3)
 
-    @classmethod
-    def dobi_iz_json_slovarja(cls, slovar):
+    def dobi_iz_json_slovarja(slovar):
         slovar_iger = {}
         for id_igre, (igra_slovar, stanje) in slovar["igre"].items():
             slovar_iger[int(id_igre)] = (
