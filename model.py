@@ -65,6 +65,17 @@ class Memo:
         else:
             return(self.preveri_vrstico(ugibanje))
 
+    def pretvori_v_json_slovar(self):
+        return{
+            "level": self.level,
+            "geslo": self.geslo,
+            "ugibanja" : self.ugibanja,            
+        }
+
+    @staticmethod
+    def dobi_iz_json_slovarja(slovar):
+        return Memo(slovar["level"], slovar["geslo"], slovar["ugibanja"])
+
 
 
 def izberi_datoteko(level):
