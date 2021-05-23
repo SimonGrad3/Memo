@@ -1,10 +1,13 @@
 import random
+import json
 
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
 ZMAGA, PORAZ = "W", "L"
 ZAČETEK = "S"
 ŠTEVILO_POSKUSOV = 6
+
+DATOTEKA_ZA_SHRANJEVANJE = "shrani.json"
 
 def premešaj(seznam):
     return random.shuffle(seznam)
@@ -90,10 +93,50 @@ def nova_igra(level):
     return Memo(geslo, level)
 
 
+
+
+
 class Igre:
     def __init__(self, začetne_igre=None, začetni_id=0):
         self.igre = začetne_igre or {}
         self.max_id = začetni_id
+
+    def pretvori_v_json_slovar(self):
+        slovar_iger= {}
+
+        for id_igre, (igra, stanje) in self.igre.items():
+            slovar_iger[id_igre] = (
+                igra.pretvori_v_json_slovar()
+                stanje
+            )
+        
+        return {
+            "max_id": self.max_id,
+            "igre": slovar_iger
+        }
+
+    def zapisi_v_datoteko(self, datoteka):
+        with open(datoteka, "w") as dat:
+            json_slovar = self.pretvori_v_json_slovar()
+            json.dump(json_slovar, dat, indent=3)
+
+    @classmethod
+    def dobi_iz_json_slovarja(cls, slovar):
+        slovar_iger = {}
+        for id_igre, (igra_slovar, stanje) in slovar["igre"].items():
+            slovar_iger[int(id_igre)] = (
+                Memo.dobi_iz_json_slovarja(igra_slovar), stanje
+            )
+        
+        return Igre(slovar_iger, slovar["max_id"])
+
+    @staticmethod
+    def preberi_iz_datoteke(datoteka):
+        with open(datoteka, "r") as in_file:
+            json_slovar = json.load(in_file)
+        return Igre.dobi_iz_json_slovarja(json_slovar)
+
+
 
     def prost_id_igre(self):
         self.max_id += 1
