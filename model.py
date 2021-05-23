@@ -157,3 +157,33 @@ class Igre:
 
 
 
+class Uporabnik:
+    def __init__(self, uporabniško_ime, igre):
+        self.uporabniško_ime = uporabniško_ime
+        self.igre = igre
+    
+    def v_slovar(self):
+        return {
+            "uporabniško_ime": self.uporabniško_ime,
+            "igre": self.igre.pretvori_v_json_slovar()
+        }
+
+    def v_datoteko(self):
+        with open(Uporabnik.ime_uporabnikove_datoteke(self.uporabniško_ime), "w") as datoteka:
+            json.dump(self.v_slovar(), datoteka, ensure_ascii=False, indent=5)
+
+    @staticmethod
+    def ime_uporabnikove_datoteke(uporabniško_ime):
+        return f"{uporabniško_ime}.json"
+
+    @staticmethod
+    def iz_slovarja(slovar):
+        uporabniško_ime = slovar["uporabniško_ime"]
+        igre = Igre.dobi_iz_json_slovarja(slovar["igre"])
+        return Uporabnik(uporabniško_ime, igre)
+
+    @staticmethod
+    def iz_datoteke(uporabniško_ime):
+        with open(Uporabnik.ime_uporabnikove_datoteke(uporabniško_ime)) as dat:
+            slovar = json.load(dat)
+            return Uporabnik.iz_slovarja(slovar)
