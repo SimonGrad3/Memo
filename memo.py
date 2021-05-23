@@ -18,13 +18,15 @@ def shrani_stanje(uporabnik):
 def trenutni_uporabnik():
     uporabniško_ime = bottle.request.get_cookie(PIŠKOTEK_UPORABNIŠKO_IME, secret= SKRIVNOST)
     if uporabniško_ime:
-        try:
-            vse_igre = model.Uporabnik.iz_datoteke(uporabniško_ime)
-        except FileNotFoundError:
-            bottle.redirect("/registracija/")
+        return podatki_uporabnika(uporabniško_ime)
     else:
         bottle.redirect("/prijava/")
-    return uporabniško_ime
+
+def podatki_uporabnika(uporabniško_ime):
+    try:
+        return model.Uporabnik.iz_datoteke(uporabniško_ime)
+    except FileNotFoundError:
+        return bottle.redirect("/registracija/")
 
 @bottle.get("/prijava/")
 def prijava_get():
@@ -33,12 +35,14 @@ def prijava_get():
 @bottle.post("/prijava/")
 def prijava_post():
     uporabniško_ime = bottle.request.forms.getunicode("uporaniško_ime")
-    geslo = bottle.request.forms.getunicode("geslo")
-    if geslo == "geslo":
-        bottle.response.set_cookie(PIŠKOTEK_UPORABNIŠKO_IME, uporabniško_ime, path="/", secret= SKRIVNOST)
-        bottle.redirect("/")
-    else:
-        return bottle.template("prijava.html", napaka="Geslo je napačno!")
+    napisano_geslo = bottle.request.forms.getunicode("geslo")
+    if uporabniško_ime:
+        uporabnik = podatki_uporabnika(uporabniško_ime)
+        if uporabnik.preveri_geslo(napisano_geslo):
+            bottle.response.set_cookie(PIŠKOTEK_UPORABNIŠKO_IME, uporabniško_ime, path="/", secret= SKRIVNOST)
+            bottle.redirect("/")
+        else:
+            return bottle.template("prijava.html", napaka="Geslo je napačno!")
             
 @bottle.get("/registacija/")
 def registracija_get():
@@ -47,8 +51,8 @@ def registracija_get():
 @bottle.post("/registacija/")
 def registracija_post():
     uporabniško_ime = bottle.request.forms.getunicode("uporaniško_ime")
-    geslo = bottle.request.forms.getunicode("geslo")
-    model.Uporabnik(uporabniško_ime, model.Igre())
+    napisano_geslo = bottle.request.forms.getunicode("geslo")
+    model.Uporabnik(uporabniško_ime, napisano_geslo, model.Igre())
     bottle.redirect("/")
 
 

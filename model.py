@@ -7,7 +7,7 @@ ZMAGA, PORAZ = "ČČČČ", "L"
 ZAČETEK = "S"
 ŠTEVILO_POSKUSOV = 6
 
-DATOTEKA_ZA_SHRANJEVANJE = "shrani.json"
+
 
 def premešaj(seznam):
     return random.shuffle(seznam)
@@ -157,14 +157,23 @@ class Igre:
 
 
 
+def zašifriraj_geslo(geslo):
+    zašifrirano_geslo = ""
+    for črka in geslo:
+        zašifrirano_geslo += črka + "pa"
+    return zašifrirano_geslo
+
+
 class Uporabnik:
-    def __init__(self, uporabniško_ime, igre):
+    def __init__(self, uporabniško_ime, zašifrirano_geslo, igre):
         self.uporabniško_ime = uporabniško_ime
+        self.zašifrirano_geslo = zašifrirano_geslo
         self.igre = igre
     
     def v_slovar(self):
         return {
             "uporabniško_ime": self.uporabniško_ime,
+            "zašifrirano_geslo": self.zašifrirano_geslo,
             "igre": self.igre.pretvori_v_json_slovar()
         }
 
@@ -179,11 +188,18 @@ class Uporabnik:
     @staticmethod
     def iz_slovarja(slovar):
         uporabniško_ime = slovar["uporabniško_ime"]
+        geslo = slovar["geslo"]
         igre = Igre.dobi_iz_json_slovarja(slovar["igre"])
-        return Uporabnik(uporabniško_ime, igre)
+        return Uporabnik(uporabniško_ime, geslo, igre)
 
     @staticmethod
     def iz_datoteke(uporabniško_ime):
         with open(Uporabnik.ime_uporabnikove_datoteke(uporabniško_ime)) as dat:
             slovar = json.load(dat)
             return Uporabnik.iz_slovarja(slovar)
+
+    def nastavi_geslo(self, napisano_geslo):
+        self.zašifrirano_geslo = zašifriraj_geslo(napisano_geslo)
+
+    def preveri_geslo(self, napisano_geslo):
+        return self.zašifrirano_geslo == zašifriraj_geslo(napisano_geslo)
