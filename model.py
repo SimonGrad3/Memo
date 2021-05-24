@@ -106,7 +106,7 @@ class Igre:
 
         for id_igre, (igra, stanje) in self.igre.items():
             slovar_iger[id_igre] = (
-                igra.pretvori_v_json_slovar()
+                igra.pretvori_v_json_slovar(),
                 stanje
             )
         
@@ -172,13 +172,13 @@ class Uporabnik:
     
     def v_slovar(self):
         return {
-            "uporabniško_ime": self.uporabniško_ime,
-            "zašifrirano_geslo": self.zašifrirano_geslo,
+            "uporabnisko_ime": self.uporabniško_ime,
+            "zasifrirano_geslo": self.zašifrirano_geslo,
             "igre": self.igre.pretvori_v_json_slovar()
         }
 
     def v_datoteko(self):
-        with open(Uporabnik.ime_uporabnikove_datoteke(self.uporabniško_ime), "w") as datoteka:
+        with open(Uporabnik.ime_uporabnikove_datoteke(self.uporabniško_ime), "w", encoding="UTF-8") as datoteka:
             json.dump(self.v_slovar(), datoteka, ensure_ascii=False, indent=5)
 
     @staticmethod
@@ -187,14 +187,14 @@ class Uporabnik:
 
     @staticmethod
     def iz_slovarja(slovar):
-        uporabniško_ime = slovar["uporabniško_ime"]
-        geslo = slovar["geslo"]
+        uporabniško_ime = slovar["uporabnisko_ime"]
+        geslo = slovar["zasifrirano_geslo"]
         igre = Igre.dobi_iz_json_slovarja(slovar["igre"])
         return Uporabnik(uporabniško_ime, geslo, igre)
 
     @staticmethod
     def iz_datoteke(uporabniško_ime):
-        with open(Uporabnik.ime_uporabnikove_datoteke(uporabniško_ime)) as dat:
+        with open(Uporabnik.ime_uporabnikove_datoteke(uporabniško_ime), encoding="UTF-8") as dat:
             slovar = json.load(dat)
             return Uporabnik.iz_slovarja(slovar)
 

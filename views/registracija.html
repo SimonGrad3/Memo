@@ -10,8 +10,11 @@
 <body>
     <form class="box" action="" method="POST">
         <h1>REGISTRACIJA</h1>
-        <input type="text" name="uporabniško_ime" placeholder="Ime in Priimek" required>
+        <input type="text" name="uporabnisko_ime" placeholder="Ime in Priimek" required>
         <input type="password" name="geslo" placeholder="Geslo" required>
+        % if napaka:
+            <h3>{{ napaka }}</h3>
+        % end
         <input type="submit" value="Registriraj se">
     </form>
     
