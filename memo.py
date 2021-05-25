@@ -11,9 +11,23 @@ def pridobi_css_datoteko(datoteka):
     return bottle.static_file(datoteka, root="css")
 
 
+def nastavi_piškotek(uporabnisko_ime, id_igre):
+    bottle.response.set_cookie(
+        PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, id_igre, path="/", secret= SKRIVNOST
+        )
 
 def shrani_stanje(uporabnik):
     uporabnik.v_datoteko()
+
+def trenutni_id():
+    piškotek_id_igre = bottle.request.get_cookie(
+        PISKOTEK_UPORABNISKO_IME, secret= SKRIVNOST
+        )
+
+    if piškotek_id_igre:
+        return int(piškotek_id_igre)
+    else:
+        bottle.redirect("/nova_igra/")
 
 def trenutni_uporabnik():
     uporabniško_ime = bottle.request.get_cookie(
@@ -42,9 +56,7 @@ def prijava_post():
     if uporabnisko_ime:
         uporabnik = podatki_uporabnika(uporabnisko_ime)
         if uporabnik.preveri_geslo(napisano_geslo):
-            bottle.response.set_cookie(
-                PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, path="/", secret= SKRIVNOST
-                )
+            nastavi_piškotek(uporabnisko_ime, 0)
             bottle.redirect("/")
         else:
             return bottle.template("prijava.html", napaka="Geslo je napačno!")
@@ -60,14 +72,17 @@ def registracija_post():
     uporabniško_ime = bottle.request.forms.getunicode("uporabnisko_ime")
     napisano_geslo = bottle.request.forms.getunicode("geslo")
 
-    if uporabniško_ime:
+    try: 
+        model.Uporabnik.iz_datoteke(uporabniško_ime) #zgolj za to, da vrne napako
         return bottle.template("registracija.html", napaka="To uporabniško ime že obstaja!")
-    else:    
+    except FileNotFoundError:    
         novi_uporabnik = model.Uporabnik(
             uporabniško_ime, model.zašifriraj_geslo(napisano_geslo), model.Igre()
             )
+        nastavi_piškotek(uporabniško_ime, 0)
         novi_uporabnik.v_datoteko()
         bottle.redirect("/")
+
 
 
 @bottle.get("/")
@@ -78,34 +93,27 @@ def začetna():
 @bottle.post("/igra/")
 def nova_igra(level=1):
     uporabnik = trenutni_uporabnik()
-    id_igre = uporabnik.vse_igre.nova_igra(level)
-    novi_url = f"/igra/{id_igre}"
+    id_igre = uporabnik.igre.nova_igra(level)
     shrani_stanje(uporabnik)
-    bottle.response.set_cookie(
-        PISKOTEK_UPORABNISKO_IME, uporabnik, path="/", secret= SKRIVNOST
-        )
-    return bottle.redirect("/igra/")
+    nastavi_piškotek(uporabnik.uporabniško_ime, id_igre)
+    return bottle.redirect("/igraj/")
 
-@bottle.get("/igra/")
-def pokaži_igro(id_igre):
-    id_igre = int(bottle.request.get_cookie(
-        PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
-        ))
+@bottle.get("/igraj/")
+def pokaži_igro():
     uporabnik = trenutni_uporabnik()
+    id_igre = trenutni_id()
 
-    igra, stanje = uporabnik.vse_igre.igre[id_igre]
+    igra, stanje = uporabnik.igre.igre[id_igre]
     shrani_stanje(uporabnik)
     return bottle.template("baza.html", igra=igra, id_igre=id_igre, stanje=stanje)
 
-@bottle.post("/igra/")
-def ugibaj(id_igre):
-    id_igre = int(bottle.request.get_cookie(
-        PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
-        ))
+@bottle.post("/igraj/")
+def ugibaj():
     uporabnik = trenutni_uporabnik()
+    id_igre = trenutni_id()
     ugib = bottle.request.forms.getunicode["ugib"]
 
-    uporabnik.vse_igre.ugibaj(id_igre, ugib)
+    uporabnik.igre.ugibaj(id_igre, ugib)
     shrani_stanje(uporabnik)
     return bottle.redirect(f"/igra/{id_igre}")
 
