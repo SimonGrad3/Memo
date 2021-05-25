@@ -59,14 +59,16 @@ class Memo:
         return self.št_napak() > ŠTEVILO_POSKUSOV
 
     def igraj(self, ugibanje):
-        self.ugibanja.append(ugibanje)
 
         if self.zmaga(ugibanje):
-            return ZMAGA
+            stanje = ZMAGA
         elif self.poraz():
-            return PORAZ
+            stanje = PORAZ
         else:
-            return(self.preveri_vrstico(ugibanje))
+            stanje = (self.preveri_vrstico(ugibanje))
+             
+        self.ugibanja.append([ugibanje, stanje])
+        return stanje
 
     def pretvori_v_json_slovar(self):
         return{
