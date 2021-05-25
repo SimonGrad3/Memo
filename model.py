@@ -17,13 +17,13 @@ def izloči(črka, seznam):
     return seznam.remove(črka)
 
 class Memo:
-    def __init__(self, geslo, level, ugibanja=None):
+    def __init__(self, level, geslo, ugibanja=None):
         self.geslo = geslo
         self.level = level
         self.ugibanja = ugibanja or list()
     
     def __repr__(self):
-        return f"Memo({self.geslo}, {self.level}, {self.ugibanja})"
+        return f"Memo({self.level}, {self.geslo}, {self.ugibanja})"
 
     def preveri_vrstico(self, ugibanje):
         output = list()
@@ -90,7 +90,7 @@ def nova_igra(level):
         možnosti = dat.read().split()
         geslo_str = random.choice(možnosti)
         geslo = [barva for barva in geslo_str]
-    return Memo(geslo, level)
+    return Memo( level ,geslo)
 
 
 
