@@ -13,28 +13,33 @@ def pridobi_css_datoteko(datoteka):
 
 def nastavi_piškotek(uporabnisko_ime, id_igre):
     bottle.response.set_cookie(
-        PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, id_igre, path="/", secret=SKRIVNOST
+        PISKOTEK_UPORABNISKO_IME, uporabnisko_ime+ "-" + str(id_igre), path="/", secret=SKRIVNOST
         )
 
 def shrani_stanje(uporabnik):
     uporabnik.v_datoteko()
 
+def pridobi_iz_niza(niz):
+    if niz == None:
+        bottle.redirect("/prijava/")
+    else:
+        ime, id = niz.split("-")
+        return ime, int(id)
+
 def trenutni_id():
-    piškotek_id_igre = bottle.request.get_cookie(
+    piškotek= bottle.request.get_cookie(
         PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
         )
-
-    if piškotek_id_igre:
-        return int(piškotek_id_igre)
-    else:
-        bottle.redirect("/igra/")
+    _, id = pridobi_iz_niza(piškotek)
+    return id
 
 def trenutni_uporabnik():
-    uporabniško_ime = bottle.request.get_cookie(
+    piškotek = bottle.request.get_cookie(
         PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
         )
-    if uporabniško_ime:
-        return podatki_uporabnika(uporabniško_ime)
+    ime, _ = pridobi_iz_niza(piškotek)
+    if ime:
+        return podatki_uporabnika(ime)
     else:
         bottle.redirect("/prijava/")
 
@@ -91,7 +96,7 @@ def začetna():
     uporabnik = trenutni_uporabnik()
     return bottle.template("zacetna.html", uporabnik=uporabnik)
 
-@bottle.post("/igra/<level>")
+@bottle.get("/igra/<level>")
 def nova_igra(level=1):
     uporabnik = trenutni_uporabnik()
     id_igre = uporabnik.igre.nova_igra(level)
@@ -112,20 +117,20 @@ def pokaži_igro():
 def ugibaj():
     uporabnik = trenutni_uporabnik()
     id_igre = trenutni_id()
-    ugib = bottle.request.forms.getunicode["ugib"]
+    ugib = bottle.request.forms.getunicode("ugib")
 
     uporabnik.igre.ugibaj(id_igre, ugib)
     shrani_stanje(uporabnik)
-    return bottle.redirect(f"/igra/{id_igre}")
+    return bottle.redirect("/igraj/")
 
 
 @bottle.get("/nastavi_stopnjo/")
-def nastavi_stopnjo():
+def nastavi_stopnjo_get():
     return bottle.template("nastavi_stopnjo.html")
 
 @bottle.post("/nastavi_stopnjo/")
-def nastavi_stopnjo():
-    level = bottle.request.forms.getunicode("uporabnisko_ime")
+def nastavi_stopnjo_post():
+    level = bottle.request.forms.getunicode("level")
     bottle.redirect(f"/igra/{level}")
 
 

@@ -151,7 +151,7 @@ class Igre:
 
     def ugibaj(self, id_igre, ugib):
         """Ob ugibanju vrne rezultat ter spremeni stanje"""
-        igra:Memo = self.igre[id_igre]
+        igra, _ = self.igre[id_igre]
         novo_stanje = igra.igraj(ugib)
         self.igre[id_igre] = (igra, novo_stanje)
 
