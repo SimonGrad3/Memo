@@ -13,7 +13,7 @@ def pridobi_css_datoteko(datoteka):
 
 def nastavi_piškotek(uporabnisko_ime, id_igre):
     bottle.response.set_cookie(
-        PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, id_igre, path="/", secret= SKRIVNOST
+        PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, id_igre, path="/", secret=SKRIVNOST
         )
 
 def shrani_stanje(uporabnik):
@@ -21,17 +21,17 @@ def shrani_stanje(uporabnik):
 
 def trenutni_id():
     piškotek_id_igre = bottle.request.get_cookie(
-        PISKOTEK_UPORABNISKO_IME, secret= SKRIVNOST
+        PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
         )
 
     if piškotek_id_igre:
         return int(piškotek_id_igre)
     else:
-        bottle.redirect("/nova_igra/")
+        bottle.redirect("/igra/")
 
 def trenutni_uporabnik():
     uporabniško_ime = bottle.request.get_cookie(
-        PISKOTEK_UPORABNISKO_IME, secret= SKRIVNOST
+        PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST
         )
     if uporabniško_ime:
         return podatki_uporabnika(uporabniško_ime)
@@ -51,9 +51,8 @@ def prijava_get():
 @bottle.post("/prijava/")
 def prijava_post():
     uporabnisko_ime = bottle.request.forms.getunicode("uporabnisko_ime")
-    print(bottle.request.forms)
     napisano_geslo = bottle.request.forms.getunicode("geslo")
-    if uporabnisko_ime:
+    if uporabnisko_ime: 
         uporabnik = podatki_uporabnika(uporabnisko_ime)
         if uporabnik.preveri_geslo(napisano_geslo):
             nastavi_piškotek(uporabnisko_ime, 0)
@@ -76,13 +75,15 @@ def registracija_post():
         model.Uporabnik.iz_datoteke(uporabniško_ime) #zgolj za to, da vrne napako
         return bottle.template("registracija.html", napaka="To uporabniško ime že obstaja!")
     except FileNotFoundError:    
-        novi_uporabnik = model.Uporabnik(
+        naredi_novega_uporabnika(uporabniško_ime, napisano_geslo)
+
+def naredi_novega_uporabnika(uporabniško_ime, napisano_geslo):
+    novi_uporabnik = model.Uporabnik(
             uporabniško_ime, model.zašifriraj_geslo(napisano_geslo), model.Igre()
             )
-        nastavi_piškotek(uporabniško_ime, 0)
-        novi_uporabnik.v_datoteko()
-        bottle.redirect("/")
-
+    nastavi_piškotek(uporabniško_ime, 0)
+    novi_uporabnik.v_datoteko()
+    bottle.redirect("/")
 
 
 @bottle.get("/")
@@ -90,7 +91,7 @@ def začetna():
     uporabnik = trenutni_uporabnik()
     return bottle.template("zacetna.html", uporabnik=uporabnik)
 
-@bottle.post("/igra/")
+@bottle.post("/igra/<level>")
 def nova_igra(level=1):
     uporabnik = trenutni_uporabnik()
     id_igre = uporabnik.igre.nova_igra(level)
@@ -121,6 +122,11 @@ def ugibaj():
 @bottle.get("/nastavi_stopnjo/")
 def nastavi_stopnjo():
     return bottle.template("nastavi_stopnjo.html")
+
+@bottle.post("/nastavi_stopnjo/")
+def nastavi_stopnjo():
+    level = bottle.request.forms.getunicode("uporabnisko_ime")
+    bottle.redirect(f"/igra/{level}")
 
 
 
