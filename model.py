@@ -5,7 +5,7 @@ BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
 ZMAGA, PORAZ = "ČČČČ", "L"
 ZAČETEK = "S"
-ŠTEVILO_POSKUSOV = 6
+ŠTEVILO_POSKUSOV = 4
 
 
 

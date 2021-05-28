@@ -110,8 +110,9 @@ def pokaži_igro():
     id_igre = trenutni_id()
 
     igra, stanje = uporabnik.igre.igre[id_igre]
+    napake = igra.št_napak()
     shrani_stanje(uporabnik)
-    return bottle.template("baza.html", igra=igra, id_igre=id_igre, stanje=stanje)
+    return bottle.template("baza.html", igra=igra, id_igre=id_igre, stanje=stanje, napake=napake)
 
 @bottle.post("/igraj/")
 def ugibaj():

@@ -10,67 +10,68 @@
         <link rel="stylesheet" href="/css/baza.css">
     </head>
     <body>
+        <table>
+            %for j in range(napake):
+                <tr>
+                    % for i in range(4):
+                        <td > <a class= "{{igra.ugibanja[j][0][i]}}"></a></td>
+                    % end 
+                    <td class="rezultat"> {{igra.ugibanja[j][1]}} </td>   
+                </tr>
+            % end
+            % for j in range(6-napake):
+                <tr>
+                    % for i in range(4):
+                        <td ></td>
+                    % end 
+                    <td class="rezultat"></td>
+                </tr>
+            %end
+        </table>  
 
+    % if stanje == model.ZMAGA:
+        <p>ČESTITKE! USPELO TI JE PRAVILNO UGANITI!</p>
         
-    <table>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-        <tr>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
-            <td class="rezultat"> </td>
-        </tr>
-    
-    </table>
+        <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+
+
+    % elif stanje == model.PORAZ: 
+        <p> Žal ti tokrat ni uspelo. Več sreče naslednjič. Geslo je bilo:</p>
+        <table>
+            <tr>
+                <td> <a class="{{ igra.geslo[0] }}"></a></td>
+                <td>{{ igra.geslo[1] }}</td>
+                <td>{{ igra.geslo[2] }}</td>
+                <td>{{ igra.geslo[3] }}</td>
+            </tr>
+        </table>
+
+        <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+
+    % else:
+    <form action="/igraj/" method="POST">
+        <input type="text" name="ugib">
+        <button type="submit"> Ugibaj </button>
+        
+    </form>
     
     <p>
         t
-        <a class="R" href=""></a>
-        <a class="M" href=""></a>   
-        <a class="Z" href=""></a>
-        <a class="O" href=""></a>
-        <a class="V" href=""></a>
-        <a class="Y" href=""></a>
-        <a class="P" href=""></a>
+        <a class="R">R</a>
+        <a class="M">M</a>   
+        <a class="Z">Z</a>
+        <a class="O">O</a>
+        <a class="V">V</a>
+        <a class="Y">Y</a>
+        <a class="P">P</a>
+        <a class="B">B</a>
+        <a class="N">N</a>
+        <a class="Č">Č</a>
         t
     </p>
+
     
 
-
+    % end
 </body>
 </html>
