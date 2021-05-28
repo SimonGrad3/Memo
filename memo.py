@@ -134,6 +134,12 @@ def nastavi_stopnjo_post():
     level = bottle.request.forms.getunicode("level")
     bottle.redirect(f"/igra/{level}")
 
+@bottle.get("/moje_igre/")
+def pokaži_igre():
+    uporabnik = trenutni_uporabnik()
+    id_igre = trenutni_id()
+    igre = uporabnik.igre
+    return bottle.template("moje_igre.html", uporabnik=uporabnik, igre=igre)
 
 
 
