@@ -3,7 +3,7 @@ import json
 
 BELA, ČRNA, NEVIDNA = "B", "Č", "N"
 RDEČA, MODRA, ZELENA, ORANŽNA, VIJOLIČNA, RUMENA, ROZA = "R", "M", "Z", "O", "V", "Y", "P" 
-ZMAGA, PORAZ = "ČČČČ", "L"
+ZMAGA, PORAZ = "ČČČČ", "LLLL"
 ZAČETEK = "S"
 ŠTEVILO_POSKUSOV = 4
 

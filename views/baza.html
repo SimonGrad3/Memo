@@ -16,7 +16,12 @@
                     % for i in range(4):
                         <td > <a class= "{{igra.ugibanja[j][0][i]}}"></a></td>
                     % end 
-                    <td class="rezultat"> {{igra.ugibanja[j][1]}} </td>   
+                    <td class="rezultat">  
+                        <a class= "{{igra.ugibanja[j][1][0]}}"></a>
+                        <a class= "{{igra.ugibanja[j][1][1]}}"></a>
+                        <a class= "{{igra.ugibanja[j][1][2]}}"></a>
+                        <a class= "{{igra.ugibanja[j][1][3]}}"></a>
+                    </td>   
                 </tr>
             % end
             % for j in range(6-napake):
@@ -40,9 +45,9 @@
         <table>
             <tr>
                 <td> <a class="{{ igra.geslo[0] }}"></a></td>
-                <td>{{ igra.geslo[1] }}</td>
-                <td>{{ igra.geslo[2] }}</td>
-                <td>{{ igra.geslo[3] }}</td>
+                <td><a class="{{ igra.geslo[1] }}"></a></td>
+                <td><a class="{{ igra.geslo[2] }}"></a></td>
+                <td><a class="{{ igra.geslo[3] }}"></a></td>
             </tr>
         </table>
 
