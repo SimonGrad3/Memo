@@ -35,13 +35,13 @@
         </table>  
 
     % if stanje == model.ZMAGA:
-        <p>ČESTITKE! USPELO TI JE PRAVILNO UGANITI!</p>
+        <p class="opozorilo"> ČESTITKE! USPELO TI JE PRAVILNO UGANITI!</p>
         
         <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
 
 
     % elif stanje == model.PORAZ: 
-        <p> Žal ti tokrat ni uspelo. Več sreče naslednjič. Geslo je bilo:</p>
+        <p class="opozorilo"> Žal ti tokrat ni uspelo. Več sreče naslednjič. Geslo je bilo:</p>
         <table>
             <tr>
                 <td> <a class="{{ igra.geslo[0] }}"></a></td>
@@ -61,17 +61,31 @@
     </form>
     
     <p>
-        t
-        <a class="R">R</a>
-        <a class="M">M</a>   
-        <a class="Z">Z</a>
-        <a class="O">O</a>
-        <a class="V">V</a>
-        <a class="Y">Y</a>
-        <a class="P">P</a>
-        <a class="B">B</a>
-        <a class="N">N</a>
-        <a class="Č">Č</a>
+        % if int(igra.level) == 1:
+            <p class="opozorilo"> Pozor! Barve se pri prvi stopnji ne ponavljajo. </p>
+            <a class="R">R</a>
+            <a class="M">M</a>
+            <a class="Z">Z</a>
+            <a class="O">O</a>
+        % else:
+            <p class="opozorilo"> Barve se lahko ponavljajo. </p>
+            % for i in range(1, int(igra.level) + 1):
+                %if i == 2:
+                    <a class="R">R</a>
+                    <a class="M">M</a>
+                %elif i == 3:
+                    <a class="Z">Z</a>
+                %elif i == 4:
+                    <a class="O">O</a>
+                %elif i == 5:
+                    <a class="V">V</a>
+                %elif i == 6:
+                    <a class="Y">Y</a>
+                %elif i == 7:
+                    <a class="P">P</a>
+                %end
+            % end
+        %end
         t
     </p>
 

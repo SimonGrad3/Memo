@@ -29,6 +29,12 @@ p{
     margin-top: 50px;
 }
 
+.opozorilo{
+    font-size: 15px;
+    color: whitesmoke;
+}
+
+
 a{
     background-color: white;
     padding: 10px 20px;
