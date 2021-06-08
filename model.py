@@ -70,6 +70,15 @@ class Memo:
         self.ugibanja.append([ugibanje, stanje])
         return stanje
 
+    def preveri_vstavitev(self, vstavitev):
+        datoteka = izberi_datoteko(self.level)
+        with open(datoteka, encoding="utf8") as dat:
+            vse_kombinacije = dat.read().split()
+            if vstavitev in vse_kombinacije:
+                return True
+            else:
+                return False
+
     def pretvori_v_json_slovar(self):
         return{
             "level": self.level,

@@ -119,10 +119,14 @@ def ugibaj():
     uporabnik = trenutni_uporabnik()
     id_igre = trenutni_id()
     ugib = bottle.request.forms.getunicode("ugib")
+    igra, _ = uporabnik.igre.igre[id_igre]
 
-    uporabnik.igre.ugibaj(id_igre, ugib)
-    shrani_stanje(uporabnik)
-    return bottle.redirect("/igraj/")
+    if igra.preveri_vstavitev(ugib):
+        uporabnik.igre.ugibaj(id_igre, ugib)
+        shrani_stanje(uporabnik)
+        return bottle.redirect("/igraj/")
+    else:
+        return bottle.redirect("/igraj/")
 
 
 @bottle.get("/nastavi_stopnjo/")
