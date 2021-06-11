@@ -35,9 +35,10 @@
         </table>  
 
     % if stanje == model.ZMAGA:
-        <p class="opozorilo"> ČESTITKE! USPELO TI JE PRAVILNO UGANITI!</p>
+        <p class="opozorilo"> Čestitke! Uspelo ti je pravilno uganiti!</p>
         
-        <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+        <a class="nova_igra" href="/nastavi_stopnjo/">NOVA IGRA</a>
+        <a class="nova_igra" href="/">GLAVNI MENI</a>
 
 
     % elif stanje == model.PORAZ: 
@@ -52,6 +53,7 @@
         </table>
 
         <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+        <a class="nova_igra" href="/">GLAVNI MENI</a>
 
     % else:
     <form action="/igraj/" method="POST">
