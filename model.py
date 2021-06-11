@@ -30,14 +30,14 @@ class Memo:
         geslo_za_preverjanje = [i for i in self.geslo]
         ugibanje_za_preverjanje = [i for i in ugibanje]
         
-        """Preveri (ČRNE), če je kakšna ista barva na istem mestu"""
+        #Preveri (ČRNE), če je kakšna ista barva na istem mestu
         for i in range(4):
             if ugibanje_za_preverjanje[3-i] == geslo_za_preverjanje[3-i]:
                 output.append(ČRNA)
                 geslo_za_preverjanje.pop(3-i)
                 ugibanje_za_preverjanje.pop(3-i)
 
-        """Preveri še ostale (BELE, NEVIDNE)"""
+        #Preveri še ostale (BELE, NEVIDNE)
         n = len(ugibanje_za_preverjanje)
         for i in range(n):
             if ugibanje_za_preverjanje[n-i-1] in geslo_za_preverjanje:
@@ -59,7 +59,7 @@ class Memo:
         return self.št_napak() > ŠTEVILO_POSKUSOV
 
     def igraj(self, ugibanje):
-
+        ugibanje = ugibanje.upper()
         if self.zmaga(ugibanje):
             stanje = ZMAGA
         elif self.poraz():
@@ -71,6 +71,7 @@ class Memo:
         return stanje
 
     def preveri_vstavitev(self, vstavitev):
+        vstavitev = vstavitev.upper()
         datoteka = izberi_datoteko(self.level)
         with open(datoteka, encoding="utf8") as dat:
             vse_kombinacije = dat.read().split()
