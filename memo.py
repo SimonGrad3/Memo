@@ -90,6 +90,11 @@ def naredi_novega_uporabnika(uporabniško_ime, napisano_geslo):
     novi_uporabnik.v_datoteko()
     bottle.redirect("/")
 
+@bottle.post("/odjava/")
+def odjava_post():
+    bottle.response.delete_cookie(PISKOTEK_UPORABNISKO_IME ,path="/")
+    bottle.redirect("/")
+
 
 @bottle.get("/")
 def začetna():

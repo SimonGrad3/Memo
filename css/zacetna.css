@@ -1,5 +1,4 @@
 
-
 *
 {
     margin: 0;
@@ -16,7 +15,7 @@ body
     min-height: 100vh;
     background-color: black;
 }
-a{
+a, input[type = "submit"] {
     position: relative;
     padding: 10px 30px;
     margin: 0 15px;
@@ -34,7 +33,7 @@ a.glavni{
     padding: 15px 50px;
 }
 
-a:hover
+a:hover, input[type = "submit"]:hover
 {
     background: #21ebff;
     color: #111;
