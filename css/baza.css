@@ -10,8 +10,8 @@ table{
 
 }
 td{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     font-size: 30px;
     border-bottom: black  solid;
     padding: 0;
@@ -19,8 +19,8 @@ td{
 }
 
 .rezultat{
-    width: 100px;
-    height: 50px;
+    width: 120px;
+    height: 60px;
     border: black 5px solid;
 }
 

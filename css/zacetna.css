@@ -25,6 +25,8 @@ a, input[type = "submit"] {
     font-size: 30px;
     transition: 0.6s;
     border-radius: 24px;
+    background-color: none;
+    border: none;
 }
 
 a.glavni{
