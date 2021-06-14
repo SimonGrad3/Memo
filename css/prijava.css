@@ -78,9 +78,10 @@ body
 
 a{
     color: #21ebff;
-    font-size: 25px;
+    font-size: 30px;
     font-family: sans-serif;
     text-decoration: none;
-    margin-top: 15px;
-    margin-left: 15px;
+    position: fixed;
+    top: 5%;
+    left: 5%;
 }
