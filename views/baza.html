@@ -33,8 +33,21 @@
                 </tr>
             %end
         </table>  
+    
 
-    % if stanje == model.ZMAGA:
+    % if stanje == model.ZMAGA and int(igra.level) == 7: 
+        <p class="opozorilo">Čestitke postal si <b>mojster</b> igre memo. 
+            Vpiši ime pod katerim si želiš biti zapisan v tabelo mojstrov igre memo.</p>
+        
+        <form action="/mojster/" method="POST">
+            <input type="text" name="mojster">
+            <button type="submit"> Vpiši se v zgodovino igre memo </button>
+        </form>
+
+        <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+        <a class="nova_igra" href="/">Glavni meni</a>
+    
+    % elif stanje == model.ZMAGA:
         <p class="opozorilo"> Čestitke! Uspelo ti je pravilno uganiti!</p>
         
         <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>

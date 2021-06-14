@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mojstri</title>
+    <link rel="stylesheet" href="/css/mojstri.css">
+</head>
+<body>
+    <h1>Tukaj so zapisani vsi mojstri igre memo:</h1>
+
+    <table>
+        % for mojster in seznam_vseh_mojstrov:
+            <tr>
+                <td>
+                    <p>{{mojster[0]}}</p>
+                </td>
+                <td>
+                    <p><b>{{mojster[1]}}</b></p>
+                </td>
+            </tr>
+        % end
+    </table>
+    
+</body>
+</html>

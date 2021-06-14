@@ -1,5 +1,6 @@
 import bottle
 import model
+from datetime import date
 
 PISKOTEK_UPORABNISKO_IME = "prijavljen"
 SKRIVNOST = "ofnweo93km'1md'md"
@@ -143,13 +144,24 @@ def nastavi_stopnjo_post():
     level = bottle.request.forms.getunicode("level")
     bottle.redirect(f"/igra/{level}")
 
+@bottle.post("/mojster/")
+def mojster():
+    mojster = bottle.request.forms.getunicode("mojster")
+    datum = date.today().strftime("%Y/%m/%d")
+    model.v_mojstre(mojster, datum)
+    return bottle.redirect("/")
+
+@bottle.get("/mojstri/")
+def pokaži_mojster():
+    seznam_vseh_mojstrov = model.iz_mojstrov()
+    return bottle.template("mojstri.html", seznam_vseh_mojstrov=seznam_vseh_mojstrov)
+
 @bottle.get("/moje_igre/")
 def pokaži_igre():
     uporabnik = trenutni_uporabnik()
     id_igre = trenutni_id()
     igre = uporabnik.igre
     return bottle.template("moje_igre.html", uporabnik=uporabnik, igre=igre)
-
 
 
 

@@ -215,3 +215,16 @@ class Uporabnik:
 
     def preveri_geslo(self, napisano_geslo):
         return self.zašifrirano_geslo == zašifriraj_geslo(napisano_geslo)
+
+def v_mojstre(mojster, datum):
+    with open("Mojstri.txt", "a", encoding="UTF-8") as datoteka:
+        nova_vrstica = f"{datum},{mojster}"  
+        print(nova_vrstica, file=datoteka)
+
+def iz_mojstrov():
+    with open("Mojstri.txt", "r", encoding="UTF-8") as datoteka:
+        seznam_vseh_mojstrov = []
+        for vrstica in datoteka:
+            seznam_mojstra = vrstica.split(",")
+            seznam_vseh_mojstrov.append(seznam_mojstra)
+        return seznam_vseh_mojstrov
