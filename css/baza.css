@@ -44,7 +44,7 @@ a{
     font-family: sans-serif;
 }
 
-.nova_igra, .box input[type = "submit"]{
+.nova_igra, input[type = "submit"]{
     padding: 10px 30px;
     margin: 0 15px;
     color: #21ebff;
@@ -57,7 +57,7 @@ a{
     background-color: black;
 }
 
-.nova_igra:hover, .box input[type = "submit"]:focus{
+.nova_igra:hover, input[type = "submit"]:focus{
     background: #21ebff;
     color: #111;
     margin-bottom: 10px;
