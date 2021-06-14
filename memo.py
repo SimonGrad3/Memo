@@ -156,12 +156,9 @@ def pokaži_mojster():
     seznam_vseh_mojstrov = model.iz_mojstrov()
     return bottle.template("mojstri.html", seznam_vseh_mojstrov=seznam_vseh_mojstrov)
 
-@bottle.get("/moje_igre/")
+@bottle.get("/navodila/")
 def pokaži_igre():
-    uporabnik = trenutni_uporabnik()
-    id_igre = trenutni_id()
-    igre = uporabnik.igre
-    return bottle.template("moje_igre.html", uporabnik=uporabnik, igre=igre)
+    return bottle.template("navodila.html")
 
 
 
