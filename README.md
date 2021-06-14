@@ -17,10 +17,10 @@ Stopnje v igri narekujejo, kako zahtevno kombinacijo igralec ugiba:
  
   (OD TU NAPREJ SE BARVE VEDNO **PONAVLJAJO**.)
   
-  3. Igralec ugiba med **dvema** različnima barvama, ampak se ti **ponavljata**. 
-  4. Igralec ugiba med **tremi** različnimi barvami.
-  5. Igralec ugiba med **štirimi** različnimi barvami.
-  6. Igralec ugiba med **petimi** različnimi barvami.
-  7. Igralec ugiba med **šestimi** različnimi barvami. (Originalna igra)
-  8. Igralec ugiba med **sedmimi** različnimi barvami.
+  2. Igralec ugiba med **dvema** različnima barvama, ampak se ti **ponavljata**. 
+  3. Igralec ugiba med **tremi** različnimi barvami.
+  4. Igralec ugiba med **štirimi** različnimi barvami.
+  5. Igralec ugiba med **petimi** različnimi barvami.
+  6. Igralec ugiba med **šestimi** različnimi barvami. (Originalna igra)
+  7. Igralec ugiba med **sedmimi** različnimi barvami.
   
