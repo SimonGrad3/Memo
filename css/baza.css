@@ -9,6 +9,7 @@ table{
     background-color: #21ebff;
 
 }
+
 td{
     width: 60px;
     height: 60px;
@@ -44,9 +45,9 @@ a{
     font-family: sans-serif;
 }
 
-.nova_igra, input[type = "submit"]{
+.nova_igra{
     padding: 10px 30px;
-    margin: 0 15px;
+    margin: 15px 15px;
     color: #21ebff;
     text-decoration: none;
     letter-spacing: 2px;
@@ -57,13 +58,23 @@ a{
     background-color: black;
 }
 
-.nova_igra:hover, input[type = "submit"]:focus{
+.nova_igra:hover{
     background: #21ebff;
     color: #111;
     margin-bottom: 10px;
 }
 
+#glavni_meni{
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+}
 
+#nova_igra{
+    position: fixed;
+    bottom: 5%;
+    left: 35%;
+}
 
 
 .R{
@@ -132,4 +143,22 @@ input[type = "text"]:focus
 {
     width: 280px;
     border-color: #2ecc71
+}
+
+
+button[type = "submit"]
+{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 30px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.25s;
 }

@@ -40,12 +40,12 @@
             Vpiši ime pod katerim si želiš biti zapisan v tabelo mojstrov igre memo.</p>
         
         <form action="/mojster/" method="POST">
-            <input type="text" name="mojster">
-            <button type="submit"> Vpiši se v zgodovino igre memo </button>
+            <input type="text" name="mojster" placeholder="Vpiši se v zgodovino igre">
+            <button type="submit"> Potrdi </button>
         </form>
 
-        <a class="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
-        <a class="nova_igra" href="/">Glavni meni</a>
+        <a class="nova_igra" id="nova_igra" href="/nastavi_stopnjo/">Nova igra</a>
+        <a class="nova_igra" id="glavni_meni" href="/">Glavni meni</a>
     
     % elif stanje == model.ZMAGA:
         <p class="opozorilo"> Čestitke! Uspelo ti je pravilno uganiti!</p>
@@ -70,8 +70,8 @@
 
     % else:
     <form action="/igraj/" method="POST" autocomplete="off">
-        <input type="text" name="ugib">
-        <button type="submit"> Ugibaj </button>
+        <input type="text" name="ugib" placeholder="Ugibaj"> 
+        <button type="submit"> Potrdi </button>
         
     </form>
     
